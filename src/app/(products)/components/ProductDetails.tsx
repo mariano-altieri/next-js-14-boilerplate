@@ -22,11 +22,12 @@ export const ProductDetails = (props: Props) => {
         <div className="md:flex-1 px-4">
           <div className="h-[460px] rounded-lg bg-gray-300 dark:bg-gray-700 mb-4">
             <Image
-              className="w-full h-full object-cover"
+              className="w-full h-auto object-cover"
               src={product.images[0]}
               alt={product.title}
               width={460}
               height={460}
+              priority
             />
           </div>
           <div className="flex items-center justify-center gap-2 mb-4">
