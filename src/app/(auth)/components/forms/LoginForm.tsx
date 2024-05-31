@@ -1,23 +1,22 @@
 'use client';
 
 import { useState } from 'react';
-// import { signIn } from 'next-auth/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
-import { Button } from '@/app/commons/components/ui/button';
 import { Form } from '@/app/commons/components/ui/form';
 import { CustomRHFInput } from '@/app/commons/components/form/CustomRHFInput';
 import { SubmitButton } from '@/app/commons/components/form/SubmitButton';
 
 import { signInSchema, type SignIn } from '../../schemas/auth.schemas';
 import { FormError } from './FormError';
+import { login } from '../../services/auth.actions';
 
 export function LoginForm() {
   const form = useForm<SignIn>({
     resolver: zodResolver(signInSchema),
     defaultValues: {
-      email: '',
+      username: '',
       password: '',
     },
   });
@@ -27,6 +26,8 @@ export function LoginForm() {
   async function onSubmit(values: SignIn): Promise<void> {
     setIsSubmitting(true);
     setError(null);
+
+    await login(values.username, values.password);
 
     // const response = await signIn('credentials', {
     //     redirect: false,
@@ -55,7 +56,7 @@ export function LoginForm() {
       <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
         {error && <FormError errorMessage={error} />}
 
-        <CustomRHFInput label="Email" name="email" type="email" autoComplete="on" />
+        <CustomRHFInput label="Username" name="username" type="text" autoComplete="on" />
         <CustomRHFInput label="Password" name="password" type="password" autoComplete="on" />
 
         <div className="pt-2">

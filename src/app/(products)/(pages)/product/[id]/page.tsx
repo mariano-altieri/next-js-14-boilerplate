@@ -1,5 +1,5 @@
-import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 
 import { getProductById, getProducts } from '@/app/(products)/services/products.actions';
 import { ProductDetails } from '@/app/(products)/components/ProductDetails';
@@ -11,9 +11,7 @@ interface PageProps {
 export async function generateStaticParams() {
   const { products } = await getProducts(1, 20); // Let's be considerated with the free API!!
 
-  return products.map((product) => ({
-    params: { id: String(product.id) },
-  }));
+  return products.map((product) => ({ id: String(product.id) }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {

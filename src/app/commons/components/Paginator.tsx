@@ -1,12 +1,14 @@
 import {
   Pagination,
   PaginationContent,
-  PaginationEllipsis,
   PaginationItem,
-  PaginationLink,
   PaginationNext,
   PaginationPrevious,
 } from '@/app/commons/components/ui/pagination';
+import Link from 'next/link';
+
+import { cn } from '../libs/utils';
+import { buttonVariants } from './ui/button';
 
 interface PaginatorProps {
   total: number;
@@ -31,12 +33,17 @@ export function Paginator(props: PaginatorProps) {
 
         {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNumber) => (
           <PaginationItem key={pageNumber}>
-            <PaginationLink
+            <Link
               href={baseRoute.replace('{page}', String(pageNumber))}
-              isActive={pageNumber === page}
+              aria-current={pageNumber === page ? 'page' : undefined}
+              className={cn(
+                buttonVariants({
+                  variant: pageNumber === page ? 'outline' : 'ghost',
+                }),
+              )}
             >
               {pageNumber}
-            </PaginationLink>
+            </Link>
           </PaginationItem>
         ))}
 

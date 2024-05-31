@@ -1,3 +1,5 @@
+import { MainLayout } from './commons/components/templates/MainLayout';
+
 export default function HomePage() {
-  return <>Hello World</>;
+  return <MainLayout>Home Page</MainLayout>;
 }
