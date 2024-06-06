@@ -11,7 +11,7 @@ import { CustomRHFInput } from '@/app/commons/components/form/CustomRHFInput';
 import { SubmitButton } from '@/app/commons/components/form/SubmitButton';
 
 import { registerSchema, type Register } from '../../schemas/auth.schemas';
-import { FormError } from './FormError';
+import { FormError } from '../../../commons/components/form/FormError';
 
 export function RegisterForm() {
   const form = useForm<Register>({

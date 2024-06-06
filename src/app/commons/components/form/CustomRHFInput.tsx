@@ -6,6 +6,7 @@ import {
   FormLabel,
   FormControl,
   FormMessage,
+  FormDescription,
 } from '@/app/commons/components/ui/form';
 import { Input } from '@/app/commons/components/ui/input';
 import { InputHTMLAttributes } from 'react';
@@ -14,10 +15,11 @@ import { useFormContext } from 'react-hook-form';
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
   name: string;
+  description?: string;
 }
 
 export const CustomRHFInput = (props: Props) => {
-  const { name, type, label, autoComplete } = props;
+  const { name, type, label, autoComplete, description } = props;
   const { control } = useFormContext();
 
   return (
@@ -28,7 +30,10 @@ export const CustomRHFInput = (props: Props) => {
         <FormItem>
           <FormLabel>{label}</FormLabel>
           <FormControl>
-            <Input type={type} {...field} autoComplete={autoComplete} />
+            <>
+              <Input type={type} {...field} autoComplete={autoComplete} />
+              {description && <FormDescription>{description}</FormDescription>}
+            </>
           </FormControl>
           <FormMessage className="text-xs text-right" />
         </FormItem>

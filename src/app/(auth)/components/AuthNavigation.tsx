@@ -1,49 +1,39 @@
 'use client';
 
 import Link from 'next/link';
-import { useSession } from 'next-auth/react';
+import type { Session } from 'next-auth';
 
-import { MenubarContent, MenubarMenu, MenubarTrigger } from '@/app/commons/components/ui/menubar';
+import { Popover, PopoverContent, PopoverTrigger } from '@/app/commons/components/ui/popover';
+import { Avatar, AvatarImage } from '@/app/commons/components/ui/avatar';
 
 import { AuthNavigationUser } from './AuthNavigationUser';
 
-export const AuthNavigation = () => {
-  const session = useSession();
+interface Props {
+  session: Session | null;
+}
 
-  if (session.status === 'loading') {
-    return <span className="text-sm px-3">Loading...</span>;
-  }
-
-  const { data } = session;
-  const user = data?.user;
-
-  if (!user) {
+export const AuthNavigation = (props: Props) => {
+  if (!props.session?.user) {
     return (
       <>
-        <MenubarMenu>
-          <MenubarTrigger asChild className="cursor-pointer">
-            <Link href="/login" className="text-white">
-              Login
-            </Link>
-          </MenubarTrigger>
-        </MenubarMenu>
-        <MenubarMenu>
-          <MenubarTrigger asChild className="cursor-pointer">
-            <Link href="/register" className="text-white">
-              Register
-            </Link>
-          </MenubarTrigger>
-        </MenubarMenu>
+        <Link href="/login">Login</Link>
+        <Link href="/register">Register</Link>
       </>
     );
   }
 
+  const { user } = props.session;
+
   return (
-    <MenubarMenu>
-      <MenubarTrigger>My Profile</MenubarTrigger>
-      <MenubarContent>
-        <AuthNavigationUser username={user.username} image={user.image} />
-      </MenubarContent>
-    </MenubarMenu>
+    <Popover>
+      <PopoverTrigger>
+        <Avatar>
+          <AvatarImage src={user.image} alt={user.username} />
+        </Avatar>
+      </PopoverTrigger>
+      <PopoverContent>
+        <AuthNavigationUser username={user.username} />
+      </PopoverContent>
+    </Popover>
   );
 };
