@@ -1,9 +1,11 @@
 import Image from 'next/image';
-import { Product } from '../entities/product.entity';
-import { ProductAddToCart } from './ProductAddToCart';
+import { IoStar } from 'react-icons/io5';
+
 import { Button } from '@/app/commons/components/ui/button';
 import { formatCurrency } from '@/app/commons/libs/currency';
-import { IoStar } from 'react-icons/io5';
+
+import { Product } from '../entities/product.entity';
+import { ProductAddToCart } from './ProductAddToCart';
 import { ProductGoBack } from './ProductGoBack';
 
 interface Props {

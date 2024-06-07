@@ -10,8 +10,8 @@ export const ProductsGrid = (props: Props) => {
 
   return (
     <div className="flex gap-3 justify-start flex-wrap">
-      {products.map((product) => (
-        <ProductCard key={product.id} product={product} />
+      {products.map((product, index) => (
+        <ProductCard key={product.id} product={product} imagePriority={index < 6} />
       ))}
     </div>
   );

@@ -7,6 +7,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/app/commons/component
 import { Avatar, AvatarImage } from '@/app/commons/components/ui/avatar';
 
 import { AuthNavigationUser } from './AuthNavigationUser';
+import { Button } from '@/app/commons/components/ui/button';
 
 interface Props {
   session: Session | null;
@@ -15,10 +16,9 @@ interface Props {
 export const AuthNavigation = (props: Props) => {
   if (!props.session?.user) {
     return (
-      <>
+      <Button asChild variant="secondary" size="sm">
         <Link href="/login">Login</Link>
-        <Link href="/register">Register</Link>
-      </>
+      </Button>
     );
   }
 

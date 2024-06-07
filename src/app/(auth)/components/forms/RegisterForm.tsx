@@ -1,19 +1,23 @@
 'use client';
 
 import { useState } from 'react';
-// import { signIn } from 'next-auth/react';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 
-import { Button } from '@/app/commons/components/ui/button';
 import { Form } from '@/app/commons/components/ui/form';
 import { CustomRHFInput } from '@/app/commons/components/form/CustomRHFInput';
 import { SubmitButton } from '@/app/commons/components/form/SubmitButton';
 
 import { registerSchema, type Register } from '../../schemas/auth.schemas';
 import { FormError } from '../../../commons/components/form/FormError';
+import { register } from '../../services/auth.actions';
 
-export function RegisterForm() {
+interface Props {
+  redirectTo?: string;
+}
+
+export function RegisterForm(props: Props) {
+  const { redirectTo } = props;
   const form = useForm<Register>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
@@ -29,26 +33,19 @@ export function RegisterForm() {
     setIsSubmitting(true);
     setError(null);
 
-    // const response = await signIn('credentials', {
-    //     redirect: false,
-    //     email: values.email,
-    //     password: hashedPassword,
-    // });
+    const response = await register(values.username, values.email, values.password);
+    setIsSubmitting(false);
 
-    // if (response?.ok) {
-    //     // @TODO - improve if possible without reloading the page. This is currently needed
-    //     // to refresh server-side components.
-    //     if (redirectTo) {
-    //         window.location.href = redirectTo;
-    //     } else {
-    //         window.location.reload();
-    //     }
-    // }
+    if (!response.ok && response.message) {
+      return setError(response.message);
+    }
 
-    // if (response?.error) {
-    //     setIsSubmitting(false);
-    //     setError('Invalid Credentials');
-    // }
+    // TODO: this should be handled by the auth store but it's the only way currently to ensure server and client sessions are synced
+    if (redirectTo) {
+      window.location.replace(redirectTo);
+    } else {
+      window.location.reload();
+    }
   }
 
   return (
@@ -56,9 +53,27 @@ export function RegisterForm() {
       <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
         {error && <FormError errorMessage={error} />}
 
-        <CustomRHFInput label="Username" name="username" type="text" autoComplete="on" />
-        <CustomRHFInput label="Email" name="email" type="email" autoComplete="on" />
-        <CustomRHFInput label="Password" name="password" type="password" autoComplete="on" />
+        <CustomRHFInput
+          label="Username"
+          name="username"
+          type="text"
+          autoComplete="on"
+          description="Valid username: emilys"
+        />
+        <CustomRHFInput
+          label="Email"
+          name="email"
+          type="email"
+          autoComplete="on"
+          description="Valid email: emilys@test.com"
+        />
+        <CustomRHFInput
+          label="Password"
+          name="password"
+          type="password"
+          autoComplete="on"
+          description="Valid password: emilyspass"
+        />
 
         <div className="pt-2">
           <SubmitButton

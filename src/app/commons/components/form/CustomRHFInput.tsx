@@ -32,10 +32,10 @@ export const CustomRHFInput = (props: Props) => {
           <FormControl>
             <>
               <Input type={type} {...field} autoComplete={autoComplete} />
-              {description && <FormDescription>{description}</FormDescription>}
             </>
           </FormControl>
           <FormMessage className="text-xs text-right" />
+          {description && <FormDescription>{description}</FormDescription>}
         </FormItem>
       )}
     />

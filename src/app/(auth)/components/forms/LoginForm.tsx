@@ -3,13 +3,11 @@
 import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { useRouter } from 'next/navigation';
 
 import { Form } from '@/app/commons/components/ui/form';
 import { CustomRHFInput } from '@/app/commons/components/form/CustomRHFInput';
 import { SubmitButton } from '@/app/commons/components/form/SubmitButton';
 import { FormError } from '@/app/commons/components/form/FormError';
-import { DEFAULT_LANDING_PAGE } from '@/app/commons/constants/routes';
 
 import { signInSchema, type SignIn } from '../../schemas/auth.schemas';
 import { login } from '../../services/auth.actions';
@@ -19,7 +17,7 @@ interface Props {
 }
 
 export function LoginForm(props: Props) {
-  const redirectTo = props.redirectTo || DEFAULT_LANDING_PAGE;
+  const { redirectTo } = props;
   const form = useForm<SignIn>({
     resolver: zodResolver(signInSchema),
     defaultValues: {
@@ -29,7 +27,6 @@ export function LoginForm(props: Props) {
   });
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const router = useRouter();
 
   async function onSubmit(values: SignIn): Promise<void> {
     setIsSubmitting(true);
@@ -42,7 +39,12 @@ export function LoginForm(props: Props) {
       return setError(response.message);
     }
 
-    return router.replace(redirectTo);
+    // TODO: this should be handled by the auth store but it's the only way currently to ensure server and client sessions are synced
+    if (redirectTo) {
+      window.location.replace(redirectTo);
+    } else {
+      window.location.reload();
+    }
   }
 
   return (

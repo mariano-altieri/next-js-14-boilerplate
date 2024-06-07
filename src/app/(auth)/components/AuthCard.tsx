@@ -13,19 +13,12 @@ import { AuthSocialLinks } from './AuthSocialLinks';
 
 interface Props extends PropsWithChildren {
   authFlow?: 'login' | 'register';
-  callbackUrl?: string;
   showSocialLogin?: boolean;
   bottomContent?: JSX.Element;
 }
 
 export const AuthCard = (props: Props) => {
-  const {
-    authFlow = 'login',
-    callbackUrl,
-    children,
-    bottomContent,
-    showSocialLogin = true,
-  } = props;
+  const { authFlow = 'login', children, bottomContent, showSocialLogin = true } = props;
   const title = authFlow === 'login' ? 'Login' : 'Register';
   const subTitle = authFlow === 'login' ? 'Login to your account' : 'Create an account';
 

@@ -19,3 +19,13 @@ export async function login(
     return handleAuthErrors(error);
   }
 }
+
+export async function register(
+  username: string,
+  email: string,
+  password: string,
+): Promise<AuthReponseError | AuthResponseSuccess> {
+  // The current dummyJSON api doesn't provide a register endpoint
+  // TODO: - implement registration
+  return login(username, password);
+}
