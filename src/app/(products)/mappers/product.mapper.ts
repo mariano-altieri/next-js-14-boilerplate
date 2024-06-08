@@ -1,5 +1,9 @@
 import { MinimalisticProduct, PaginatedProducts, Product } from '../entities/product.entity';
-import { PaginatedProductsResponse, ProductResponse } from '../services/products.response';
+import {
+  PaginatedProductsResponse,
+  ProductCategoryResponse,
+  ProductResponse,
+} from '../services/products.response';
 
 export class ProductMapper {
   static apiToMinimalisticProduct(apiProduct: ProductResponse): MinimalisticProduct {
@@ -36,5 +40,9 @@ export class ProductMapper {
       images: apiProduct.images,
       thumbnail: apiProduct.thumbnail,
     };
+  }
+
+  static apiToProductCategories(productCategories: ProductCategoryResponse[]): string[] {
+    return productCategories.map((category) => category.name);
   }
 }

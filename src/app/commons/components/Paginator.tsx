@@ -1,11 +1,5 @@
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationNext,
-  PaginationPrevious,
-} from '@/app/commons/components/ui/pagination';
 import Link from 'next/link';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 import { cn } from '../libs/utils';
 import { buttonVariants } from './ui/button';
@@ -23,16 +17,26 @@ export function Paginator(props: PaginatorProps) {
   const totalPages = Math.ceil(total / perPage);
 
   return (
-    <Pagination>
-      <PaginationContent className="flex-wrap">
+    <nav role="navigation" aria-label="pagination" className="mx-auto flex w-full justify-center">
+      <ul className="flex flex-row items-center gap-1 flex-wrap">
         {page > 1 && (
-          <PaginationItem>
-            <PaginationPrevious href={baseRoute.replace('{page}', String(page - 1))} />
-          </PaginationItem>
+          <li>
+            <Link
+              href={baseRoute.replace('{page}', String(page - 1))}
+              aria-current={'page'}
+              className={cn(
+                buttonVariants({
+                  variant: 'ghost',
+                }),
+              )}
+            >
+              <ChevronLeft className="h-4 w-4" />
+            </Link>
+          </li>
         )}
 
         {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNumber) => (
-          <PaginationItem key={pageNumber}>
+          <li key={pageNumber}>
             <Link
               href={baseRoute.replace('{page}', String(pageNumber))}
               aria-current={pageNumber === page ? 'page' : undefined}
@@ -44,15 +48,25 @@ export function Paginator(props: PaginatorProps) {
             >
               {pageNumber}
             </Link>
-          </PaginationItem>
+          </li>
         ))}
 
         {page < totalPages && (
-          <PaginationItem>
-            <PaginationNext href={baseRoute.replace('{page}', String(page + 1))} />
-          </PaginationItem>
+          <li>
+            <Link
+              href={baseRoute.replace('{page}', String(page + 1))}
+              aria-current={'page'}
+              className={cn(
+                buttonVariants({
+                  variant: 'ghost',
+                }),
+              )}
+            >
+              <ChevronRight className="h-4 w-4" />
+            </Link>
+          </li>
         )}
-      </PaginationContent>
-    </Pagination>
+      </ul>
+    </nav>
   );
 }

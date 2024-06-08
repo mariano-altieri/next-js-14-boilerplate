@@ -17,15 +17,19 @@ export const ProductCard = async (props: Props) => {
 
   return (
     <Card className="w-full md:max-w-[300px] p-3">
-      <Image
-        src={product.thumbnail}
-        alt={product.title}
-        width={350}
-        height={350}
-        className="w-full"
-        priority={imagePriority}
-      />
-      <div className="text-lg text-center my-2">{product.title}</div>
+      <Link href={`/product/${product.id}`}>
+        <Image
+          src={product.thumbnail}
+          alt={product.title}
+          width={350}
+          height={350}
+          className="w-full"
+          priority={imagePriority}
+        />
+      </Link>
+      <div className="text-lg text-center my-4 line-clamp-2 leading-6 min-h-12">
+        {product.title}
+      </div>
       <div className="flex gap-2 items-center">
         <ProductAddToCart product={product} />
         <Button asChild variant="outline" size="sm">

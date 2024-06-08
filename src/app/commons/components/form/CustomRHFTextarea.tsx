@@ -1,6 +1,6 @@
 'use client';
 
-import { InputHTMLAttributes } from 'react';
+import type { TextareaHTMLAttributes } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import {
@@ -11,16 +11,16 @@ import {
   FormMessage,
   FormDescription,
 } from '@/app/commons/components/ui/form';
-import { Input } from '@/app/commons/components/ui/input';
+import { Textarea } from '../ui/textarea';
 
-interface Props extends InputHTMLAttributes<HTMLInputElement> {
+interface Props extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   label: string;
   name: string;
   description?: string;
 }
 
-export const CustomRHFInput = (props: Props) => {
-  const { name, type, label, autoComplete, description } = props;
+export const CustomRHFTextarea = (props: Props) => {
+  const { name, label, description } = props;
   const { control } = useFormContext();
 
   return (
@@ -28,11 +28,11 @@ export const CustomRHFInput = (props: Props) => {
       control={control}
       name={name}
       render={({ field }) => (
-        <FormItem className={type === 'hidden' ? 'hidden' : ''}>
+        <FormItem>
           <FormLabel>{label}</FormLabel>
           <FormControl>
             <>
-              <Input type={type} {...field} autoComplete={autoComplete} />
+              <Textarea {...field} />
             </>
           </FormControl>
           <FormMessage className="text-xs text-right" />

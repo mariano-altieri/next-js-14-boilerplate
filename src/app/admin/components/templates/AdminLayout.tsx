@@ -3,6 +3,8 @@
 import type { Session } from 'next-auth';
 import { useSession } from 'next-auth/react';
 
+import { Toaster } from '@/app/commons/components/ui/toaster';
+
 import { AdminSideMenu } from '../AdminSideMenu';
 import { AdminSidebar } from '../AdminSidebar';
 import { AdminTopNavigation } from '../AdminTopNavigation';
@@ -33,6 +35,7 @@ export function AdminLayout(props: Props) {
         </div>
         <div className="flex-grow p-6 overflow-auto bg-gray-200">{children}</div>
       </div>
+      <Toaster />
     </div>
   );
 }

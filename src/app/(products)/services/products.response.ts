@@ -9,7 +9,7 @@ export interface ProductResponse {
   id: number;
   title: string;
   description: string;
-  category: ProductCategory;
+  category: string;
   price: number;
   discountPercentage: number;
   rating: number;
@@ -30,16 +30,15 @@ export interface ProductResponse {
   thumbnail: string;
 }
 
+export interface ProductCategoryResponse {
+  name: string;
+  slug: string;
+  url: string;
+}
+
 enum AvailabilityStatus {
   InStock = 'In Stock',
   LowStock = 'Low Stock',
-}
-
-export enum ProductCategory {
-  Beauty = 'beauty',
-  Fragrances = 'fragrances',
-  Furniture = 'furniture',
-  Groceries = 'groceries',
 }
 
 interface Dimensions {

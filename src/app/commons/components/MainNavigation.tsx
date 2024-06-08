@@ -1,13 +1,13 @@
 import Link from 'next/link';
-
-import { AuthNavigation } from '@/app/(auth)/components/AuthNavigation';
-import { auth } from '@/app/(auth)/config/auth';
+import dynamic from 'next/dynamic';
 
 import { MainLogo } from './MainLogo';
 
-export const MainNavigation = async () => {
-  const session = await auth();
+const AuthNavigation = dynamic(() => import('@/app/(auth)/components/AuthNavigation'), {
+  ssr: false,
+});
 
+export const MainNavigation = async () => {
   return (
     <header className="flex flex-col sm:flex-row items-center justify-between w-full bg-slate-800 text-white p-3 gap-2">
       <MainLogo />
@@ -15,7 +15,9 @@ export const MainNavigation = async () => {
         <Link href="/about">About</Link>
         <Link href="/contact">Contact</Link>
         <Link href="/products">Products</Link>
-        <AuthNavigation session={session} />
+        <div className="min-h-10 min-w-10 flex items-center justify-center">
+          <AuthNavigation />
+        </div>
       </nav>
     </header>
   );

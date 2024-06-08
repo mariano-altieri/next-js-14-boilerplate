@@ -1,28 +1,30 @@
 'use client';
 
 import Link from 'next/link';
-import type { Session } from 'next-auth';
+import { useSession } from 'next-auth/react';
 
 import { Popover, PopoverContent, PopoverTrigger } from '@/app/commons/components/ui/popover';
 import { Avatar, AvatarImage } from '@/app/commons/components/ui/avatar';
-
-import { AuthNavigationUser } from './AuthNavigationUser';
 import { Button } from '@/app/commons/components/ui/button';
 
-interface Props {
-  session: Session | null;
-}
+import { AuthNavigationUser } from './AuthNavigationUser';
 
-export const AuthNavigation = (props: Props) => {
-  if (!props.session?.user) {
+export const AuthNavigation = () => {
+  const session = useSession();
+  const { data, status } = session;
+  const { user } = data ?? {};
+
+  if (status === 'loading') {
+    return null;
+  }
+
+  if (!user) {
     return (
       <Button asChild variant="secondary" size="sm">
         <Link href="/login">Login</Link>
       </Button>
     );
   }
-
-  const { user } = props.session;
 
   return (
     <Popover>
@@ -37,3 +39,5 @@ export const AuthNavigation = (props: Props) => {
     </Popover>
   );
 };
+
+export default AuthNavigation;

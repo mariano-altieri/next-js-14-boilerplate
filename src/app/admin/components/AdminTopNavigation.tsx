@@ -1,7 +1,7 @@
 import { Session } from 'next-auth';
+import Link from 'next/link';
 
 import { AuthNavigation } from '@/app/(auth)/components/AuthNavigation';
-import Link from 'next/link';
 import { Button } from '@/app/commons/components/ui/button';
 
 interface Props {
@@ -19,7 +19,7 @@ export const AdminTopNavigation = (props: Props) => {
         <Button asChild className="text-sm">
           <Link href="/">Go to Public Site</Link>
         </Button>
-        <AuthNavigation session={session} />
+        <AuthNavigation />
       </div>
     </>
   );
