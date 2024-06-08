@@ -2,7 +2,7 @@ import NextAuth, { DefaultSession } from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 
 import { AUTH_API_URL } from '../constants/api';
-import { signInSchema } from '../schemas/auth.schemas';
+import { signInSchema } from '../schemas/auth.schema';
 import { User } from '../interfaces/user.interface';
 
 declare module 'next-auth' {

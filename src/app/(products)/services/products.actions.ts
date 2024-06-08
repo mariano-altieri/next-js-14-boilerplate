@@ -1,7 +1,7 @@
 import { PRODUCTS_API_URL } from '../constants/api';
 import { PaginatedProducts, Product } from '../entities/product.entity';
 import { ProductMapper } from '../mappers/product.mapper';
-import { CreateUpdateProduct } from '../schemas/create-update-product-schema';
+import { CreateUpdateProduct } from '../schemas/create-update-product.schema';
 import { ProductCategoryResponse } from './products.response';
 
 export async function getProducts(page = 1, limit = 20): Promise<PaginatedProducts> {
@@ -53,6 +53,21 @@ export async function updateProduct(product: CreateUpdateProduct): Promise<Produ
     return ProductMapper.apiToProduct(product);
   } catch (error) {
     throw new Error(`Error updating product id #${id}`);
+  }
+}
+
+export async function createProduct(product: CreateUpdateProduct): Promise<Product> {
+  try {
+    const response = await fetch(`${PRODUCTS_API_URL}/add`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(product),
+    });
+    const createdProduct = await response.json();
+
+    return ProductMapper.apiToProduct(createdProduct);
+  } catch (error) {
+    throw new Error('Error creating new product');
   }
 }
 

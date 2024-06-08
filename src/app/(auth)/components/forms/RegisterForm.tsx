@@ -8,7 +8,7 @@ import { Form } from '@/app/commons/components/ui/form';
 import { CustomRHFInput } from '@/app/commons/components/form/CustomRHFInput';
 import { SubmitButton } from '@/app/commons/components/form/SubmitButton';
 
-import { registerSchema, type Register } from '../../schemas/auth.schemas';
+import { registerSchema, type Register } from '../../schemas/auth.schema';
 import { FormError } from '../../../commons/components/form/FormError';
 import { register } from '../../services/auth.actions';
 

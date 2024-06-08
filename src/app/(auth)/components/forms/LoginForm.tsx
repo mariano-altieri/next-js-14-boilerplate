@@ -9,7 +9,7 @@ import { CustomRHFInput } from '@/app/commons/components/form/CustomRHFInput';
 import { SubmitButton } from '@/app/commons/components/form/SubmitButton';
 import { FormError } from '@/app/commons/components/form/FormError';
 
-import { signInSchema, type SignIn } from '../../schemas/auth.schemas';
+import { signInSchema, type SignIn } from '../../schemas/auth.schema';
 import { login } from '../../services/auth.actions';
 
 interface Props {

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
@@ -11,15 +12,15 @@ import { SubmitButton } from '@/app/commons/components/form/SubmitButton';
 import { FormError } from '@/app/commons/components/form/FormError';
 import { useToast } from '@/app/commons/components/ui/use-toast';
 import { CustomRHFSelect } from '@/app/commons/components/form/CustomRHFSelect';
+import { CustomRHFMultiSelect } from '@/app/commons/components/form/CustomRHFMultiSelect';
 import { Button } from '@/app/commons/components/ui/button';
 
 import type { Product } from '../../entities/product.entity';
 import {
   CreateUpdateProduct,
   createUpdateProductSchema,
-} from '../../schemas/create-update-product-schema';
-import { updateProduct } from '../../services/products.actions';
-import { CustomRHFMultiSelect } from '@/app/commons/components/form/CustomRHFMultiSelect';
+} from '../../schemas/create-update-product.schema';
+import { createProduct, updateProduct } from '../../services/products.actions';
 import { someTags } from '../../data/tags';
 
 interface Props {
@@ -48,6 +49,7 @@ export function CreateUpdateProductForm(props: Props) {
     },
   });
   const { toast } = useToast();
+  const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -56,12 +58,16 @@ export function CreateUpdateProductForm(props: Props) {
     setError(null);
 
     try {
-      await updateProduct(values);
+      const method = product?.id ? updateProduct : createProduct;
+      await method(values);
 
       toast({
-        title: 'Product created/updated successfully',
+        title: product?.id ? 'Product updated successfully' : 'Product created successfully',
         description: `Just a test. This won't be persisted in DB. Check your network to see the request.`,
       });
+
+      // Redirect to products page after creating a new product
+      !product?.id && router.push('/admin/products');
     } catch (error: any) {
       setError(error?.message ?? 'An error occurred');
     }
@@ -105,9 +111,11 @@ export function CreateUpdateProductForm(props: Props) {
         <CustomRHFInput label="Brand" name="brand" type="text" />
 
         <div className="pt-2 flex justify-end gap-2">
-          <Button type="button" variant="destructive" onClick={onDeleteProduct}>
-            Delete product
-          </Button>
+          {product?.id && (
+            <Button type="button" variant="destructive" onClick={onDeleteProduct}>
+              Delete product
+            </Button>
+          )}
           <SubmitButton
             label={product?.id ? 'Update product' : 'Create product'}
             onSubmitLabel={product?.id ? 'Updating product...' : 'Creating product...'}

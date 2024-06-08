@@ -46,25 +46,13 @@ export const AdminSideMenu = () => {
         </Link>
         <Link
           className="flex items-center flex-shrink-0 h-10 px-2 text-sm font-medium rounded hover:bg-slate-800 hover:text-white"
-          href="#"
+          href="/admin/categories"
         >
           <span className="leading-none">Categories</span>
         </Link>
         <Link
-          className="flex items-center flex-shrink-0 h-10 px-2 text-sm font-medium rounded hover:bg-slate-800 hover:text-white"
-          href="#"
-        >
-          <span className="leading-none">Users</span>
-        </Link>
-        <Link
-          className="flex items-center flex-shrink-0 h-10 px-2 text-sm font-medium rounded hover:bg-slate-800 hover:text-white"
-          href="#"
-        >
-          <span className="leading-none">More options</span>
-        </Link>
-        <Link
           className="flex items-center flex-shrink-0 h-10 px-3 mt-auto text-sm font-medium rounded bg-slate-800 text-white"
-          href="#"
+          href="/admin/product/new"
         >
           <svg
             className="w-5 h-5"

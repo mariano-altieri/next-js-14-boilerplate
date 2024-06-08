@@ -1,9 +1,10 @@
-import { formatCurrency } from '@/app/commons/libs/currency';
-import { MinimalisticProduct } from '../entities/product.entity';
 import Image from 'next/image';
-import { Button } from '@/app/commons/components/ui/button';
 import Link from 'next/link';
 
+import { formatCurrency } from '@/app/commons/libs/currency';
+import { Button } from '@/app/commons/components/ui/button';
+
+import { MinimalisticProduct } from '../entities/product.entity';
 interface Props {
   products: MinimalisticProduct[];
 }
@@ -84,10 +85,6 @@ export const ProductsTable = (props: Props) => {
           </div>
         </div>
       </div>
-      {/* <ProductsGrid products={products} />
-      <div className="my-4 border-t pt-2">
-        <Paginator total={total} page={page} perPage={perPage} baseRoute="/products?page={page}" />
-      </div> */}
     </div>
   );
 };

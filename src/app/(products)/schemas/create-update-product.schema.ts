@@ -23,7 +23,6 @@ export const createUpdateProductSchema = z.object({
     .number({
       message: 'Discount percentage must be a number.',
     })
-    .positive()
     .min(0)
     .max(100),
   stock: z.coerce
