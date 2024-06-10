@@ -16,7 +16,7 @@ export const ProductCard = async (props: Props) => {
   const { product, imagePriority = false } = props;
 
   return (
-    <Card className="w-full md:max-w-[300px] p-3">
+    <Card className="w-full p-3">
       <Link href={`/product/${product.id}`}>
         <Image
           src={product.thumbnail}
