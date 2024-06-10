@@ -3,6 +3,8 @@ import { notFound } from 'next/navigation';
 
 import { getProductById, getProducts } from '@/app/(products)/services/products.actions';
 import { ProductDetails } from '@/app/(products)/components/ProductDetails';
+import { ShoppingCard } from '@/app/shopping-cart/components/ShoppingCard';
+import { ProductLayout } from '@/app/(products)/components/templates/ProductLayout';
 
 interface PageProps {
   params: { id: string };
@@ -28,9 +30,13 @@ export default async function ProductDetailsPage({ params }: PageProps) {
   const { id } = params;
   const product = await getProductById(Number(id));
 
-  if (!product) {
+  if (!product || !product.id) {
     return notFound();
   }
 
-  return <ProductDetails product={product} />;
+  return (
+    <ProductLayout>
+      <ProductDetails product={product} />
+    </ProductLayout>
+  );
 }
