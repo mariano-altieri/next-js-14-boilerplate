@@ -73,4 +73,8 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  .few-results .product-card {
+    @apply md:max-w-[300px];
+  }
 }
