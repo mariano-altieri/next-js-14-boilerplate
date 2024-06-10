@@ -2,7 +2,7 @@
 
 Next JS App Router boilerplate that simulates a basic e-commerce and includes a few basic pages (CSR, SSG, SSR and ISR). It contains a small Admin, protected and public routes, forms (+ validation) and several commonly used features: authentication, search, products grid, pagination, shopping cart and more.
 
-Demo [here](https://nextjs-app-router.vercel.app/).
+Demo [here](https://next-js-14-boilerplate-tau.vercel.app/).
 
 ## Tech Stack
 
