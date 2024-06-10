@@ -10,10 +10,11 @@ import { ProductAddToCart } from './ProductAddToCart';
 interface Props {
   product: MinimalisticProduct;
   imagePriority?: boolean;
+  showActions?: boolean;
 }
 
 export const ProductCard = async (props: Props) => {
-  const { product, imagePriority = false } = props;
+  const { product, imagePriority = false, showActions = true } = props;
 
   return (
     <Card className="w-full p-3 product-card">
@@ -30,12 +31,14 @@ export const ProductCard = async (props: Props) => {
       <div className="text-lg text-center my-4 line-clamp-2 leading-6 min-h-12">
         {product.title}
       </div>
-      <div className="flex gap-2 items-center">
-        <ProductAddToCart product={product} />
-        <Button asChild variant="outline" size="sm">
-          <Link href={`/product/${product.id}`}>View Details</Link>
-        </Button>
-      </div>
+      {showActions && (
+        <div className="flex gap-2 items-center">
+          <ProductAddToCart product={product} />
+          <Button asChild variant="outline" size="sm">
+            <Link href={`/product/${product.id}`}>View Details</Link>
+          </Button>
+        </div>
+      )}
     </Card>
   );
 };

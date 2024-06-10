@@ -1,28 +1,23 @@
-import { Heading } from './commons/components/Heading';
-import { MainLayout } from './commons/components/templates/MainLayout';
+import { ProductsGrid } from '@/app/(products)/components/ProductsGrid';
+import { getProducts } from '@/app/(products)/services/products.actions';
+import { MainLayout } from '@/app/commons/components/templates/MainLayout';
+import { Heading } from '@/app/commons/components/Heading';
+import { Button } from '@/app/commons/components/ui/button';
+import Link from 'next/link';
 
-export default function HomePage() {
+export default async function HomePage() {
+  const { products } = await getProducts(1, 4);
+
   return (
     <MainLayout>
       <div className="container my-3">
-        <Heading>Welcome</Heading>
-        <p className="mb-4">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur repellendus consectetur
-          cum veniam nobis incidunt, eos reprehenderit. Quisquam aut minima excepturi voluptates
-          illum corporis dicta saepe error quaerat nihil! Debitis!
-        </p>
-        <p className="mb-4">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit eaque magnam, quaerat
-          corrupti inventore nostrum sed placeat, ipsum hic porro vel maxime consectetur deleniti
-          officiis minima molestias ullam ipsam recusandae. Ratione, sed cumque cupiditate sit neque
-          error dicta dignissimos enim earum iste eum, aliquid temporibus voluptas rem autem quae
-          dolor optio corporis nemo quidem.
-        </p>
-        <p className="mb-4">
-          Autem, consectetur adipisci? Odit, quisquam blanditiis. Nisi facilis deserunt reiciendis
-          tempora amet placeat inventore impedit, iure aspernatur. Debitis accusamus totam facilis
-          quae minima nobis quos molestiae neque.
-        </p>
+        <Heading>Featured Products</Heading>
+        <ProductsGrid products={products} showActions={false} />
+        <div className="my-6 text-center">
+          <Button asChild>
+            <Link href="/products">View All Products</Link>
+          </Button>
+        </div>
       </div>
     </MainLayout>
   );

@@ -15,7 +15,7 @@ export default async function ProductsPage({ searchParams }: Props) {
   const currentPage = urlPage ? Number(urlPage) : 1;
   const limit = 12;
 
-  const { products, total, page, perPage } = query
+  const { products, total } = query
     ? await searchProducts(query)
     : await getProducts(currentPage, limit);
 
@@ -28,7 +28,12 @@ export default async function ProductsPage({ searchParams }: Props) {
       <ProductSearch />
       <ProductsGrid products={products} />
       <div className="my-4 border-t pt-2">
-        <Paginator total={total} page={page} perPage={perPage} baseRoute="/products?page={page}" />
+        <Paginator
+          total={total}
+          page={currentPage}
+          perPage={limit}
+          baseRoute="/products?page={page}"
+        />
       </div>
     </ProductLayout>
   );
