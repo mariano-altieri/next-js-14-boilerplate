@@ -53,6 +53,12 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## Roadmap
+
+- Add Unit and E2E testing
+- Add more features
+- Shrink JS bundle sizes where possible
+
 ## Contribute
 
 Feel free to contribute to this project. Any feedback or suggestions are welcome. Please open an issue or a pull request.
