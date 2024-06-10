@@ -2,7 +2,6 @@ import { PRODUCTS_API_URL } from '../constants/api';
 import { PaginatedProducts, Product } from '../entities/product.entity';
 import { ProductMapper } from '../mappers/product.mapper';
 import { CreateUpdateProduct } from '../schemas/create-update-product.schema';
-import { ProductCategoryResponse } from './products.response';
 
 export async function getProducts(page = 1, limit = 20): Promise<PaginatedProducts> {
   try {
@@ -68,6 +67,21 @@ export async function createProduct(product: CreateUpdateProduct): Promise<Produ
     return ProductMapper.apiToProduct(createdProduct);
   } catch (error) {
     throw new Error('Error creating new product');
+  }
+}
+
+export async function searchProducts(query = ''): Promise<PaginatedProducts> {
+  try {
+    const response = await fetch(`${PRODUCTS_API_URL}/search?q=${query}`, {
+      next: {
+        revalidate: 60 * 60 * 24, // 24 hours
+      },
+    });
+    const products = await response.json();
+
+    return ProductMapper.apiToPaginatedProducts(products);
+  } catch (error) {
+    throw new Error('Failed to search products');
   }
 }
 

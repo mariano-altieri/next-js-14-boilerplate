@@ -12,7 +12,7 @@ export function ProductLayout(props: Props) {
 
   return (
     <MainLayout>
-      <div className="flex flex-col lg:flex-row-reverse gap-6 lg:gap-2 lg:h-full">
+      <div className="flex flex-col lg:flex-row-reverse gap-6 lg:h-full">
         {showCart && (
           <aside className="w-full lg:w-[450px]">
             <ShoppingCard className="lg:fixed lg:right-3 lg:w-[450px]" />
